@@ -1,4 +1,3 @@
-// src/pages/dashboard.tsx
 import React, { useEffect, useState } from 'react';
 import {
   Box,
@@ -15,7 +14,7 @@ import NFTCarousel1 from '../components/NFTCarousel1';
 import EventCards from '../components/EventCards';
 import Footer from '../components/Footer';
 import BilleteraCard from '../components/BilleteraCard';
-import TestSupabaseConnection from '../components/TestSupabaseConnection'; // Importar el componente de prueba
+import TestSupabaseConnection from '../components/TestSupabaseConnection';
 
 const Dashboard = () => {
   const { user, logout, loading, network, magic } = useMagic(process.env.NEXT_PUBLIC_MAGIC_PUBLISHABLE_KEY);
@@ -25,7 +24,6 @@ const Dashboard = () => {
   const [showSanacion, setShowSanacion] = useState(false);
   const [showCertificados, setShowCertificados] = useState(false);
   const [events, setEvents] = useState([
-    // Ejemplo de eventos
     {
       title: 'Evento 1',
       start: new Date(),
@@ -46,7 +44,9 @@ const Dashboard = () => {
     }
   }, [user, loading, router]);
 
-  const handleIconClick = async (action: string) => { // Definir el tipo del parámetro `action`
+  const handleIconClick = async (action: string) => {
+    if (!magic) return;
+
     switch (action) {
       case 'ShowUIComponent':
         await magic.wallet.showUI();
@@ -69,11 +69,11 @@ const Dashboard = () => {
   };
 
   if (loading) {
-    return <Text>Cargando...</Text>; // Mostrar un indicador de carga mientras se verifica el estado del usuario
+    return <Text>Cargando...</Text>;
   }
 
   if (!user) {
-    return null; // o un indicador de carga si lo prefieres
+    return null;
   }
 
   return (
@@ -117,12 +117,12 @@ const Dashboard = () => {
               <Heading as="h2" size="lg" fontWeight="extrabold" mb={4} textAlign="center">
                 Eventos y noticias
               </Heading>
-              <EventCards events={events} /> {/* Pasa los eventos al componente EventCards */}
+              <EventCards events={events} />
             </Box>
           </Box>
         </Box>
       </Box>
-      <TestSupabaseConnection /> {/* Agregar el componente de prueba aquí */}
+      <TestSupabaseConnection />
       <Footer />
     </Flex>
   );
