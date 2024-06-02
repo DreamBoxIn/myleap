@@ -1,4 +1,4 @@
-// src/pages/dashboard.js
+// src/pages/dashboard.tsx
 import React, { useEffect, useState } from 'react';
 import {
   Box,
@@ -15,8 +15,7 @@ import NFTCarousel1 from '../components/NFTCarousel1';
 import EventCards from '../components/EventCards';
 import Footer from '../components/Footer';
 import BilleteraCard from '../components/BilleteraCard';
-import TestSupabaseConnection from '../components/TestSupabaseConnection';
-import { getBalance } from '../utils/getBalance'; // Importar la función getBalance
+import TestSupabaseConnection from '../components/TestSupabaseConnection'; // Importar el componente de prueba
 
 const Dashboard = () => {
   const { user, logout, loading, network, magic } = useMagic(process.env.NEXT_PUBLIC_MAGIC_PUBLISHABLE_KEY);
@@ -26,6 +25,7 @@ const Dashboard = () => {
   const [showSanacion, setShowSanacion] = useState(false);
   const [showCertificados, setShowCertificados] = useState(false);
   const [events, setEvents] = useState([
+    // Ejemplo de eventos
     {
       title: 'Evento 1',
       start: new Date(),
@@ -39,17 +39,6 @@ const Dashboard = () => {
       description: 'Descripción del Evento 2',
     },
   ]);
-  const [tokenAmount, setTokenAmount] = useState(0);
-
-  useEffect(() => {
-    if (!loading && user) {
-      const fetchBalance = async () => {
-        const balance = await getBalance(magic);
-        setTokenAmount(balance);
-      };
-      fetchBalance();
-    }
-  }, [user, loading, magic]);
 
   useEffect(() => {
     if (!loading && !user) {
@@ -57,7 +46,7 @@ const Dashboard = () => {
     }
   }, [user, loading, router]);
 
-  const handleIconClick = async (action) => {
+  const handleIconClick = async (action: string) => { // Definir el tipo del parámetro `action`
     switch (action) {
       case 'ShowUIComponent':
         await magic.wallet.showUI();
@@ -108,7 +97,6 @@ const Dashboard = () => {
                 setShowSanacion={setShowSanacion}
                 showCertificados={showCertificados}
                 setShowCertificados={setShowCertificados}
-                tokenAmount={tokenAmount} // Pasar el tokenAmount al componente BilleteraCard
               />
             </Flex>
             <Box mt={16}>

@@ -1,3 +1,4 @@
+// src/components/BilleteraCard.js
 import React, { useState, useEffect } from 'react';
 import {
   Card,
@@ -30,10 +31,8 @@ import UserLevelTag from './UserLevelTag';
 const BilleteraCard = ({ handleIconClick, showWalletInfo, setShowWalletInfo }) => {
   const { magic, tokens } = useMagic(process.env.NEXT_PUBLIC_MAGIC_PUBLISHABLE_KEY);
 
-  const handleToggle = () => setShowWalletInfo(!showWalletInfo);
-
   return (
-    <Card boxShadow="md" borderRadius="lg" maxWidth="400px" width="100%" onClick={() => showWalletInfo && setShowWalletInfo(false)}>
+    <Card boxShadow="md" borderRadius="lg" maxWidth="400px" width="100%">
       <CardHeader bgGradient="linear(to-r, purple.500, blue.500)" color="white" borderTopRadius="lg">
         <Flex justifyContent="center" alignItems="center">
           <HStack spacing={6}>
@@ -95,10 +94,10 @@ const BilleteraCard = ({ handleIconClick, showWalletInfo, setShowWalletInfo }) =
           </HStack>
         </Flex>
       </CardHeader>
-      <CardBody maxWidth="350px" mx="auto" mt={-2} mb={-2} onClick={(e) => e.stopPropagation()}>
+      <CardBody maxWidth="350px" mx="auto" mt={-2} mb={-2}>
         <Flex justifyContent="space-between" alignItems="center" width="100%">
           <Box>
-            <Button onClick={handleToggle} rightIcon={showWalletInfo ? <FontAwesomeIcon icon={faChevronUp} /> : <FontAwesomeIcon icon={faChevronDown} />} variant="ghost" opacity="0.6" size="sm">
+            <Button onClick={() => setShowWalletInfo(!showWalletInfo)} rightIcon={showWalletInfo ? <FontAwesomeIcon icon={faChevronUp} /> : <FontAwesomeIcon icon={faChevronDown} />} variant="ghost" opacity="0.6" size="sm">
               {showWalletInfo ? 'Ver menos' : 'Más información'}
             </Button>
           </Box>
